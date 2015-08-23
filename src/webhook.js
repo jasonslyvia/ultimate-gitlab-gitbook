@@ -26,8 +26,8 @@ export default function webhookCallback(data) {
 
       // If repo already exist, use `git pull`
       if (fs.existsSync(projectPath)) {
+        cmd.push(`cd ${REPO_PATH}`);
         cmd.push('git pull');
-        cmd.push('git checkout master && git pull');
       }
       // If not exist, clone
       else {
