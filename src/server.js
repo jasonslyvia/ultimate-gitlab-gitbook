@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import fs from 'fs';
 import webhookCallback from './webhook';
+import {compileGitbook} from './gitbook';
 
 const logStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
 
@@ -18,7 +19,8 @@ app.use(bodyParser.json());
 app.post('/', (req, res) => {
   res.sendStatus(200);
 
-  webhookCallback(req.body, {});
+  webhookCallback(req.body, {})
+  .then(compileGitbook);
 });
 
 app.listen(5823, () => {

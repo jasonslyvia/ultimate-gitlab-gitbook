@@ -19,31 +19,35 @@ export default function webhookCallback(data) {
   // series of shell command that will execute eventually
   const cmd = [];
 
-  if (data && data.repository && data.repository.name) {
-    const projectName = data.repository.name;
-    const projectPath = REPO_PATH + projectName;
+  return new Promise((resolve, reject) => {
+    if (data && data.repository && data.repository.name) {
+      const projectName = data.repository.name;
+      const projectPath = REPO_PATH + projectName;
 
-    // If repo already exist, use `git pull`
-    if (fs.existsSync(projectPath)) {
-      cmd.push('git pull origin master');
-      cmd.push('git checkout master && git pull');
-    }
-    // If not exist, clone
-    else {
-      cmd.push(`cd ${REPO_PATH}`);
-      cmd.push(`git clone ${repoUrl}`);
-    }
-
-    exec(cmd.join(' && '), (err, stdout, stderr) => {
-      !!stdout && console.log('stdout: ' + stdout);
-      !!stderr && console.log('stderr: ' + stderr);
-
-      if (err != null) {
-        console.log('error: ' + err);
+      // If repo already exist, use `git pull`
+      if (fs.existsSync(projectPath)) {
+        cmd.push('git pull origin master');
+        cmd.push('git checkout master && git pull');
       }
+      // If not exist, clone
       else {
-        console.log('Done!');
+        cmd.push(`cd ${REPO_PATH}`);
+        cmd.push(`git clone ${repoUrl}`);
       }
-    });
-  }
+
+      exec(cmd.join(' && '), (err, stdout, stderr) => {
+        !!stdout && console.log('stdout: ' + stdout);
+        !!stderr && console.log('stderr: ' + stderr);
+
+        if (err != null) {
+          console.log('error: ' + err);
+          reject(err);
+        }
+        else {
+          console.log('Webhook parsed correctly!');
+          resolve(projectPath);
+        }
+      });
+    }
+  });
 }
