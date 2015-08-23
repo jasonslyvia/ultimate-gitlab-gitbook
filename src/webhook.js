@@ -4,11 +4,7 @@
 import {spawn, exec} from 'child_process';
 import fs from 'fs';
 
-
 const REPO_PATH = '/repo';
-const HOST = '0.0.0.0';
-const PORT = '7728';
-
 
 // Prevent node from crashing
 process.on('uncaughtException', (err) => {
@@ -16,7 +12,7 @@ process.on('uncaughtException', (err) => {
 });
 
 
-export default function webhookCallback(data, params) {
+export default function webhookCallback(data) {
   const repoUrl = data.repository.git_http_url;
   const userName = data.user_name;
 

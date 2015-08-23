@@ -4,7 +4,8 @@
   "description": "Receive Gitlab web hook, generate content using Gitbook, enhance search functionality using ElasticSearch.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel src/ --out-dir lib/"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
   "dependencies": {
     "body-parser": "~1.13.3",
     "express": "~4.13.3"
+  },
+  "devDependencies": {
+    "babel": "~5.8.21"
   }
 }
