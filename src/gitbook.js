@@ -1,5 +1,6 @@
 import {exec} from 'child_process';
 import fs from 'fs';
+import config from '../config';
 
 function checkGitbook() {
   return new Promise((resolve, reject) => {
@@ -20,12 +21,13 @@ export function compileGitbook(projectPath) {
     return;
   }
 
-  const repoName = projectPath.split('/')[1];
+  const repoName = projectPath.split('/')[2];
 
   cmd.push(`cd ${projectPath}`);
+  cmd.push(`npm_config_registry=http://registry.npm.alibaba-inc.com gitbook install`);
   cmd.push(`gitbook build`);
   cmd.push(`mkdir -p /www/${repoName}`);
-  cmd.push(`cd _book && cp -R . /www/${repoName}`);
+  cmd.push(`cd _book && cp -R . /www/${config[repoName]}`);
 
   checkGitbook()
   .then(() => {
