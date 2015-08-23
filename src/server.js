@@ -5,7 +5,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.post('/hook', (req, res) => {
+app.post('/', (req, res) => {
   console.log(req.body);
 
   res.sendStatus(200);
