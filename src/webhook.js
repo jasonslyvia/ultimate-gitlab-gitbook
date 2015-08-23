@@ -4,7 +4,7 @@
 import {spawn, exec} from 'child_process';
 import fs from 'fs';
 
-const REPO_PATH = '/repo';
+const REPO_PATH = '/repo/';
 
 // Prevent node from crashing
 process.on('uncaughtException', (err) => {
@@ -30,12 +30,13 @@ export default function webhookCallback(data) {
     }
     // If not exist, clone
     else {
+      cmd.push(`cd ${REPO_PATH}`);
       cmd.push(`git clone ${repoUrl}`);
     }
 
-    exec(cmd.join(' && '), {cwd: projectPath}, (err, stdout, stderr) => {
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
+    exec(cmd.join(' && '), (err, stdout, stderr) => {
+      !!stdout && console.log('stdout: ' + stdout);
+      !!stderr && console.log('stderr: ' + stderr);
 
       if (err != null) {
         console.log('error: ' + err);
