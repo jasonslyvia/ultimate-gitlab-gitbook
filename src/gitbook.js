@@ -27,6 +27,7 @@ export function compileGitbook(projectPath) {
   cmd.push(`npm_config_registry=http://registry.npm.alibaba-inc.com gitbook install`);
   cmd.push(`gitbook build`);
   cmd.push(`mkdir -p /www/${repoName}`);
+  cmd.push(`remove -rf /www/${repoName}/*`);
   cmd.push(`cd _book && cp -R . /www/${config[repoName]}`);
 
   checkGitbook()
