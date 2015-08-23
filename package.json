@@ -1,0 +1,29 @@
+{
+  "name": "ultimate-gitlab-gitbook",
+  "version": "0.0.1",
+  "description": "Receive Gitlab web hook, generate content using Gitbook, enhance search functionality using ElasticSearch.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasonslyvia/ultimate-gitlab-gitbook.git"
+  },
+  "keywords": [
+    "gitlab",
+    "webhook",
+    "gitbook",
+    "elasticsearch"
+  ],
+  "author": "jasonslyvia <jasonslyvia@gmail.com> (http://undefinedblog.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jasonslyvia/ultimate-gitlab-gitbook/issues"
+  },
+  "homepage": "https://github.com/jasonslyvia/ultimate-gitlab-gitbook",
+  "dependencies": {
+    "body-parser": "~1.13.3",
+    "express": "~4.13.3"
+  }
+}
